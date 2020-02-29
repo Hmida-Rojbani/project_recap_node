@@ -1,21 +1,13 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
-const { Student } = require('../models/student')
+const { Student, student_body_validator } = require('../models/student')
 //get All student
 router.get('',async (req,res)=>{
     var students = await Student.find(); // select * from Student
     res.send(students);
 });
-// student validator
-const student_body_validator = {
-    name : Joi.string().min(3).max(20).required(),
-    age: Joi.number().positive(),
-    class : {
-        name : Joi.string().min(3).max(10).required(),
-        max_number :  Joi.number().positive()
-    }
-}
+
 //post new student
 router.post('',async (req,res)=>{
     var res_validation = Joi.validate(req.body,student_body_validator);
