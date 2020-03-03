@@ -22,7 +22,8 @@ const student_body_validator = {
     class : {
         name : Joi.string().min(3).max(10).required(),
         max_number :  Joi.number().positive()
-    }
+    },
+    date_inscription : Joi.date()
 }
 
 const student_body_validator_update = {
@@ -30,9 +31,11 @@ const student_body_validator_update = {
     name : Joi.string().min(3).max(20),
     age: Joi.number().positive(),
     class : {
+        _id : Joi.objectId(),
         name : Joi.string().min(3).max(10),
         max_number :  Joi.number().positive()
-    }
+    },
+    date_inscription : Joi.date()
 }
 
 // Id validator

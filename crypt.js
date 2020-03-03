@@ -8,5 +8,7 @@ async function run(){
 
         const hash=await bcrypt.hash('1234',salt);
         console.log(hash)
+        const hash1=await bcrypt.hash('1234',salt);
+        console.log(hash1)
 }
 run()
