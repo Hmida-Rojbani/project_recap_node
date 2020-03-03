@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 
 
     const token = jwt.sign({_id:user._id},config.get('jwtPrivateKey'));
-    res.send(token);
+    res.header('x-auth-token',token).send('You are Logged');
 });
 
 function validate(req){

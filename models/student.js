@@ -25,6 +25,16 @@ const student_body_validator = {
     }
 }
 
+const student_body_validator_update = {
+    _id : Joi.objectId(),
+    name : Joi.string().min(3).max(20),
+    age: Joi.number().positive(),
+    class : {
+        name : Joi.string().min(3).max(10),
+        max_number :  Joi.number().positive()
+    }
+}
+
 // Id validator
 
 const id_validator = {
@@ -33,4 +43,5 @@ const id_validator = {
 
 module.exports.Student = Student;
 module.exports.student_body_validator = student_body_validator;
+module.exports.student_body_validator_update = student_body_validator_update;
 module.exports.id_validator = id_validator;
