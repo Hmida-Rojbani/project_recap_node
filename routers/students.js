@@ -36,4 +36,27 @@ router.post('',async (req,res)=>{
     res.send(savedStudent);
 });
 
+//delete student by Id
+router.delete('/id/:id',async (req,res)=>{
+    var valid_id = Joi.validate(req.params, id_validator);
+    if(valid_id.error)
+        return res.status(400).send(valid_id.error.details[0].message);
+    var student = await Student.findByIdAndRemove(req.params.id); // select * from Student
+    if(!student) 
+        return res.status(404).send('Student with this Id is missing');
+    res.send(student);
+});
+
+
+//update student by Id
+router.put('/id/:id',async (req,res)=>{
+    var valid_id = Joi.validate(req.params, id_validator);
+    if(valid_id.error)
+        return res.status(400).send(valid_id.error.details[0].message);
+    var student = await Student.findByIdAndUpdate(req.params.id); // select * from Student
+    if(!student) 
+        return res.status(404).send('Student with this Id is missing');
+    res.send(student);
+});
+
 module.exports = router;
