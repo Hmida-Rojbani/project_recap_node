@@ -1,8 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
-const { Student, student_body_validator } = require('../models/student')
+const { Student, student_body_validator, id_validator } = require('../models/student')
 //get All students
 router.get('',async (req,res)=>{
     var students = await Student.find(); // select * from Student
@@ -11,9 +10,13 @@ router.get('',async (req,res)=>{
 
 //get student by Id
 router.get('/id/:id',async (req,res)=>{
-
-    var students = await Student.findById(); // select * from Student
-    res.send(students);
+    var valid_id = Joi.validate(req.params, id_validator);
+    if(valid_id.error)
+        return res.status(400).send(valid_id.error.details[0].message);
+    var student = await Student.findById(req.params.id); // select * from Student
+    if(!student) 
+        return res.status(404).send('Student with this Id is missing');
+    res.send(student);
 });
 
 //post new student

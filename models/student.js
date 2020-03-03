@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const classe_schema = new mongoose.Schema({
     name : {type :String, required : true},
@@ -24,5 +25,12 @@ const student_body_validator = {
     }
 }
 
+// Id validator
+
+const id_validator = {
+    id : Joi.objectId().required()
+}
+
 module.exports.Student = Student;
 module.exports.student_body_validator = student_body_validator;
+module.exports.id_validator = id_validator;
